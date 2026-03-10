@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFI Cutoff Assistant</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <meta name="description" content="Go beyond one-size-fits-all. Calculate custom MFI cutoffs for Luminex SAB panels using precision medicine.">
+    <meta name="keywords" content="Immunology, Transplant, HLA, CPRA, DSA, Luminex, SAB, Panel, MFI, Cutoff, Calculator, Software, LIMS">
+    <meta name="author" content="MFI Cutoff Assistant">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="MFI Cutoff Assistant">
+    <meta property="og:description" content="Go beyond one-size-fits-all. Calculate custom MFI cutoffs for Luminex SAB panels using precision medicine.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.mfi-cutoff-assistant.com">
+
+    <meta name="theme-color" content="#0066cc">
+    <meta name="language" content="English">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, textarea, .mfi-cutoff-calculator textarea::placeholder {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        header .container {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            vertical-align: top;
+            margin-top: 4px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        .logo-container:hover .logo-icon {
+            transform: rotate(360deg);
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .nav-links a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #0066cc;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #0066cc;
+        }
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+        .hero {
+            background-color: #0066cc;
+            color: #ffffff;
+            padding: 4rem 0;
+            padding-top: 3.2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .button-primary {
+            background-color: #f2c01c;
+            color: #0d4f91;
+        }
+        .button-primary:hover {
+            background-color: #f4cc48;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .benefits {
+            padding: 4rem 0;
+            padding-top: 2.7rem;
+            background-color: #d3e0f6;
+        }
+        .benefits h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #0066cc;
+        }
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .benefit-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .benefit-card h3 {
+            color: #00994d;
+            margin-bottom: 0.5rem;
+        }
+        .integration {
+            padding: 4rem 0;
+            padding-top: 4.4rem;
+            background-color: #EFF2F7;
+        }
+        .integration-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .integration-text {
+            flex: 1;
+        }
+        .integration h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #0066cc;
+        }
+        .integration-image {
+            flex: 1;
+        }
+        .integration-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .integration-image:hover img {
+            transform: scale(1.05);
+        }
+        .integration ul {
+            list-style-type: none;
+            margin-top: 1rem;
+        }
+        .integration li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .integration li::before {
+            content: "✓";
+            color: #00994d;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .get-started {
+            padding: 4rem 0;
+            padding-top: 2.7rem;
+            background-color: #f2c01c;
+            background-image: linear-gradient(135deg, #f2c01c 0%, #fbe6a0 100%);
+        }
+        .get-started h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #0066cc;
+        }
+        .mfi-cutoff-calculator {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            transition: box-shadow 0.3s ease;
+        }
+        .mfi-cutoff-calculator:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .mfi-cutoff-calculator textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .mfi-cutoff-calculator textarea:focus {
+            border-color: #0066cc;
+            outline: none;
+        }
+        .submit-section {
+            padding: 1.4rem 0 2rem 0;
+
+            text-align: center;
+        }
+        .mfi-cutoff-calculator button {
+            padding: 0.75rem 1.5rem;
+            background-color: #00994d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .mfi-cutoff-calculator button:hover {
+            background-color: #0fb160;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result-area {
+            padding: 1rem;
+            font-size: 24px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+            overflow-y: auto;
+            transition: border-color 0.3s ease;
+        }
+        .result-area:hover {
+            border-color: #0066cc;
+        }
+        .result-item {
+            font-weight: bold;
+            color: #00994d;
+        }
+        footer {
+            background-color: #333;
+            color: #ffffff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #00994d;
+        }
+
+        @media (max-width: 768px) {
+            .integration-content {
+                flex-direction: column;
+            }
+            .benefit-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+            .button {
+                width: 100%;
+            }
+            .mfi-cutoff-calculator textarea,
+            .mfi-cutoff-calculator button,
+            .result-area {
+                width: 100%;
+            }
+            .submit-section {
+                padding: 1.4rem 0 2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo-container">
+                <span class="logo-text"><img src="/favicon.ico" class="logo-icon"/>MFI Cutoff Assistant</span>
+            </div>
+            <div class="nav-links">
+                <a href="#get-started">Get Started</a>
+                <a href="#sponsorship">Sponsorship</a>
+                <a href="https://www.linkedin.com/company/mfi-cutoff-assistant">Our Blog</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Move beyond one-size-fits-all</h1>
+                <p>Calculate personalized MFI cutoffs for Luminex SAB panels using precision medicine. Free for researchers and HLA laboratories.</p>
+                <div class="cta-buttons">
+                    <a href="#get-started" class="button button-primary">&raquo; Get Started</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits" class="benefits">
+            <div class="container">
+                <h2>Key Benefits</h2>
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <h3>Personalized Analysis</h3>
+                        <p>Tailor cutoff calculation to individual patient immune profiles for more precise and personalized results.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Reduce Lab. Costs</h3>
+                        <p>Perform panel analyses in just a few minutes, using fewer resources, and with greater confidence.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Increase Confidence</h3>
+                        <p>Second opinions matter. MFI Cutoff Assistant helps your team to easily double-check panel analyses.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Stay Secure</h3>
+                        <p>MFI Cutoff Assistant doesn't require Personally Identifiable Information. No user data is stored in our server.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="integration" class="integration">
+            <div class="container">
+                <div class="integration-content">
+                    <div class="integration-text">
+                        <h2>Easy Integration</h2>
+                        <p>MFI Cutoff Assistant is designed to integrate smoothly with your existing laboratory software and workflows. Whether you're an HLA laboratory or software provider, our web service and website make integrating with Cutoff Assistant a breeze.</p>
+                        <ul>
+                            <li>RESTful HTTP API for integrations.</li>
+                            <li>Online website that can be embedded.</li>
+                            <li>Offline website w/o dependencies.</li>
+                        </ul>
+                    </div>
+                    <div class="integration-image">
+                        <img src="/hla-laboratory.webp" alt="Laboratory technicians analyzing DNA samples using advanced software and precision instruments.">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="get-started" class="get-started">
+            <div class="container">
+                <h2>Get Started with MFI Cutoff Assistant</h2>
+                <div class="mfi-cutoff-calculator">
+                    <div class="input-section">
+                        <textarea id="mfiValuesInput" placeholder="Copy & paste MFI values here." rows="5"></textarea>
+                    </div>
+                    <div class="submit-section">
+                        <button id="calculateMfiCutoffButton" rel="nofollow">Calculate MFI Cutoff</button>
+                    </div>
+                    <div id="result-section" class="result-area">
+                        <div class="result-item">MFI Cutoff Value: <span id="mfiCutoffValue">Waiting...</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sponsorship" class="benefits">
+            <div class="container">
+                <h2>Become a sponsor for $249/year</h2>
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <h3>Get more visibility on your brand, today!</h3>
+                        <p>This tool is used in many HLA laboratories around the world.</p>
+                        <p>We will display your logo in this section with a link to your website.</p>
+                        <p><strong>Get in touch with us to learn more: <a href="mailto:contact@mfi-cutoff-assistant.com">contact@mfi-cutoff-assistant.com</a></strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 MFI Cutoff Assistant. All rights reserved. For research use only.</p>
+            <div class="footer-links">
+                <small>
+                    Status: <b>&#x1F7E2; Operational</b>.
+                    Version: <b>2026-03-09</b>.
+                    Support: <b><a href="mailto:contact@mfi-cutoff-assistant.com">contact@mfi-cutoff-assistant.com</a></b>.
+                </small>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mfiValuesInput = document.getElementById('mfiValuesInput');
+            const calculateMfiCutoffButton = document.getElementById('calculateMfiCutoffButton');
+
+            const mfiCutoffValue = document.getElementById('mfiCutoffValue');
+            mfiCutoffValue.textContent = 'Waiting...';
+
+            calculateMfiCutoffButton.addEventListener('click', function() {
+                const mfiValues = mfiValuesInput.value.split(/[\s,;]+/).filter(val => val && val.length > 0 && !isNaN(val));
+
+                if (!mfiValues || mfiValues.length === 0) {
+                    alert('Some MFI values may be invalid. Please correct them and try again.');
+                    return;
+                }
+
+                const queryString = `mfis=${mfiValues.join('-')}`;
+
+                //const url = `https://www.mfi-cutoff-assistant.com/run?${queryString}`;
+                const url = `http://localhost:9292/run?${queryString}`;
+
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => { mfiCutoffValue.textContent = data; })
+                    .catch(error => {
+                        alert('There may be an issue with our service. Please try again later.');
+                        console.error(error);
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
