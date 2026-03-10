@@ -40,5 +40,8 @@ DEPENDENCIES
   rackup (~> 2.1)
   sinatra (~> 4.0)
 
+RUBY VERSION
+  ruby 4.0.1
+
 BUNDLED WITH
   4.0.7
