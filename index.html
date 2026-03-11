@@ -61,10 +61,10 @@
             textarea {
                 font: inherit;
                 color: inherit;
+            }
 
-                &::placeholder {
-                    color: inherit;
-                }
+            textarea::placeholder {
+                color: inherit;
             }
 
             .container {
@@ -79,10 +79,10 @@
                 background-color: var(--surface);
                 box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
                 padding-block: 1rem;
+            }
 
-                .container {
-                    padding-inline: 0;
-                }
+            header .container {
+                padding-inline: 0;
             }
 
             nav {
@@ -94,10 +94,10 @@
             .logo-container {
                 display: flex;
                 align-items: center;
+            }
 
-                &:hover .logo-icon {
-                    transform: rotate(360deg);
-                }
+            .logo-container:hover .logo-icon {
+                transform: rotate(360deg);
             }
 
             .logo-icon {
@@ -114,35 +114,34 @@
                 color: var(--brand);
             }
 
-            .nav-links {
-                a, a:visited {
-                    margin-left: 1rem;
-                    text-decoration: none;
-                    color: var(--text);
-                    font-weight: bold;
-                    position: relative;
-                    transition: color var(--transition-fast);
+            .nav-links a,
+            .nav-links a:visited {
+                margin-left: 1rem;
+                text-decoration: none;
+                color: var(--text);
+                font-weight: bold;
+                position: relative;
+                transition: color var(--transition-fast);
+            }
 
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        width: 100%;
-                        height: 2px;
-                        bottom: -5px;
-                        left: 0;
-                        background-color: var(--brand);
-                        transform: scaleX(0);
-                        transition: transform var(--transition-fast);
-                    }
+            .nav-links a::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: -5px;
+                left: 0;
+                background-color: var(--brand);
+                transform: scaleX(0);
+                transition: transform var(--transition-fast);
+            }
 
-                    &:hover {
-                        color: var(--brand);
-                    }
+            .nav-links a:hover {
+                color: var(--brand);
+            }
 
-                    &:hover::after {
-                        transform: scaleX(1);
-                    }
-                }
+            .nav-links a:hover::after {
+                transform: scaleX(1);
             }
 
             .hero {
@@ -150,17 +149,17 @@
                 color: var(--surface);
                 padding: 3.2rem 0 4rem;
                 text-align: center;
+            }
 
-                h1 {
-                    font-size: clamp(2rem, 4vw, 2.5rem);
-                    margin-bottom: 1rem;
-                }
+            .hero h1 {
+                font-size: clamp(2rem, 4vw, 2.5rem);
+                margin-bottom: 1rem;
+            }
 
-                p {
-                    font-size: 1.2rem;
-                    max-width: 700px;
-                    margin: 0 auto 2rem;
-                }
+            .hero p {
+                font-size: 1.2rem;
+                max-width: 700px;
+                margin: 0 auto 2rem;
             }
 
             .hero-buttons {
@@ -182,23 +181,24 @@
             .button-primary {
                 background-color: var(--accent);
                 color: var(--brand-contrast);
+            }
 
-                &:hover {
-                    background-color: color-mix(in srgb, var(--accent) 80%, white);
-                    transform: translateY(-3px);
-                }
+            .button-primary:hover {
+                background-color: #f5cf51;
+                background-color: color-mix(in srgb, var(--accent) 80%, white);
+                transform: translateY(-3px);
             }
 
             .benefits {
                 padding: 2.7rem 0 4rem;
                 background-color: var(--surface-alt);
+            }
 
-                h2 {
-                    text-align: center;
-                    font-size: 2rem;
-                    margin-bottom: 2rem;
-                    color: var(--brand);
-                }
+            .benefits h2 {
+                text-align: center;
+                font-size: 2rem;
+                margin-bottom: 2rem;
+                color: var(--brand);
             }
 
             .benefits-content {
@@ -214,36 +214,37 @@
                 box-shadow: var(--shadow-soft);
                 text-align: center;
                 transition: all var(--transition-fast);
+            }
 
-                &:hover {
-                    transform: translateY(-3px);
-                }
+            .benefit-card:hover {
+                transform: translateY(-3px);
+            }
 
-                h3 {
-                    color: var(--success);
-                    margin-bottom: 0.5rem;
-                }
+            .benefit-card h3 {
+                color: var(--success);
+                margin-bottom: 0.5rem;
+            }
 
-                a, a:visited {
-                    text-decoration: none;
+            .benefit-card a,
+            .benefit-card a:visited {
+                text-decoration: none;
+            }
 
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
+            .benefit-card a:hover {
+                text-decoration: underline;
             }
 
             .get-started {
                 padding: 2.7rem 0 4rem;
                 background-color: var(--accent);
                 background-image: linear-gradient(135deg, var(--accent) 0%, #fbe6a0 100%);
+            }
 
-                h2 {
-                    text-align: center;
-                    font-size: 2rem;
-                    margin-bottom: 2rem;
-                    color: var(--brand);
-                }
+            .get-started h2 {
+                text-align: center;
+                font-size: 2rem;
+                margin-bottom: 2rem;
+                color: var(--brand);
             }
 
             .get-started-content {
@@ -251,40 +252,41 @@
                 border-radius: var(--radius-md);
                 box-shadow: var(--shadow-soft);
                 padding: 2rem;
+            }
 
-                textarea {
-                    width: 100%;
-                    padding: 1rem;
-                    border: 1px solid #ccc;
-                    border-radius: var(--radius-sm);
-                    resize: vertical;
-                    font-size: 16px;
-                    transition: box-shadow var(--transition-fast);
+            .get-started-content textarea {
+                width: 100%;
+                padding: 1rem;
+                border: 1px solid #ccc;
+                border-radius: var(--radius-sm);
+                resize: vertical;
+                font-size: 16px;
+                transition: box-shadow var(--transition-fast);
+            }
 
-                    &:focus-visible {
-                        box-shadow: inset 0 6px 12px rgb(0 0 0 / 10%);
-                        outline: none;
-                    }
-                }
+            .get-started-content textarea:focus-visible {
+                box-shadow: inset 0 6px 12px rgb(0 0 0 / 10%);
+                outline: none;
+            }
 
-                button {
-                    padding: 0.75rem 1.5rem;
-                    background-color: var(--success);
-                    color: var(--surface);
-                    border: none;
-                    border-radius: var(--radius-sm);
-                    cursor: pointer;
-                    transition: all var(--transition-fast);
-                    font-size: 16px;
-                    font-weight: bold;
-                    white-space: nowrap;
-                    box-shadow: var(--shadow-soft);
+            .get-started-content button {
+                padding: 0.75rem 1.5rem;
+                background-color: var(--success);
+                color: var(--surface);
+                border: none;
+                border-radius: var(--radius-sm);
+                cursor: pointer;
+                transition: all var(--transition-fast);
+                font-size: 16px;
+                font-weight: bold;
+                white-space: nowrap;
+                box-shadow: var(--shadow-soft);
+            }
 
-                    &:hover {
-                        background-color: color-mix(in srgb, var(--success) 85%, white);
-                        transform: translateY(-3px);
-                    }
-                }
+            .get-started-content button:hover {
+                background-color: #22a95f;
+                background-color: color-mix(in srgb, var(--success) 85%, white);
+                transform: translateY(-3px);
             }
 
             .get-started-submit {
@@ -303,14 +305,14 @@
                 font-weight: bold;
                 color: #fff;
                 box-shadow: var(--shadow-soft);
+            }
 
-                &:hover {
-                    transform: translateY(-3px);
-                }
+            .get-started-result:hover {
+                transform: translateY(-3px);
+            }
 
-                &.animate-success {
-                    animation: resultPulse 0.55s ease;
-                }
+            .get-started-result.animate-success {
+                animation: resultPulse 0.55s ease;
             }
 
             @keyframes resultPulse {
@@ -332,29 +334,28 @@
                 color: var(--surface);
                 padding: 2rem 0;
                 text-align: center;
+            }
 
-                .footer-content a, .footer-content a:visited {
-                    color: var(--success);
-                    text-decoration: none;
+            footer .footer-content a,
+            footer .footer-content a:visited {
+                color: var(--success);
+                text-decoration: none;
+            }
 
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
+            footer .footer-content a:hover {
+                text-decoration: underline;
             }
 
             @media (max-width: 768px) {
-                nav {
-                    .logo-container {
-                        flex: 0 0 68%;
-                        min-width: 0;
-                    }
+                nav .logo-container {
+                    flex: 0 0 68%;
+                    min-width: 0;
+                }
 
-                    .nav-links {
-                        flex: 0 0 32%;
-                        min-width: 0;
-                        text-align: right;
-                    }
+                nav .nav-links {
+                    flex: 0 0 32%;
+                    min-width: 0;
+                    text-align: right;
                 }
 
                 .benefits-content {
