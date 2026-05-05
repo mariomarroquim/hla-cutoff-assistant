@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MFI Cutoff Assistant</title>
+    <title>HLA Cutoff Assistant</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
     <meta name="description" content="Go beyond one-size-fits-all. Calculate custom MFI cutoffs for Luminex SAB panels using precision medicine.">
     <meta name="keywords" content="Immunology, Transplant, HLA, CPRA, DSA, Luminex, SAB, Panel, MFI, Cutoff, Calculator, Software, LIMS">
-    <meta name="author" content="MFI Cutoff Assistant">
+    <meta name="author" content="HLA Cutoff Assistant">
     <meta name="robots" content="index, follow">
 
-    <meta property="og:title" content="MFI Cutoff Assistant">
+    <meta property="og:title" content="HLA Cutoff Assistant">
     <meta property="og:description" content="Go beyond one-size-fits-all. Calculate custom MFI cutoffs for Luminex SAB panels using precision medicine.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mfi-cutoff-assistant.up.railway.app/">
-    <meta property="og:image" content="https://mfi-cutoff-assistant.up.railway.app/mfi-cutoff-assistant-transparent.png">
+    <meta property="og:url" content="/">
+    <meta property="og:image" content="/hla-cutoff-assistant-transparent.png">
 
     <meta name="theme-color" content="#0066cc">
     <meta name="language" content="English">
@@ -225,15 +225,6 @@
                 margin-bottom: 0.5rem;
             }
 
-            .benefit-card a,
-            .benefit-card a:visited {
-                text-decoration: none;
-            }
-
-            .benefit-card a:hover {
-                text-decoration: underline;
-            }
-
             .get-started {
                 padding: 2.7rem 0 4rem;
                 background-color: var(--accent);
@@ -377,11 +368,10 @@
     <header>
         <nav class="container">
             <div class="logo-container">
-                <span class="logo-text"><img src="/favicon.ico" alt="MFI Cutoff Assistant" class="logo-icon"/>MFI Cutoff Assistant</span>
+                <span class="logo-text"><img src="/favicon.ico" alt="HLA Cutoff Assistant" class="logo-icon"/>HLA Cutoff Assistant</span>
             </div>
             <div class="nav-links">
                 <a href="#get-started">Get Started</a>
-                <a href="#sponsor-us">Sponsor Us</a>
             </div>
         </nav>
     </header>
@@ -411,11 +401,11 @@
                     </div>
                     <div class="benefit-card">
                         <h3>Increase Confidence</h3>
-                        <p>Second opinions matter. MFI Cutoff Assistant helps your team to easily double-check panel analyses.</p>
+                        <p>Second opinions matter. HLA Cutoff Assistant helps your team easily double-check panel analyses.</p>
                     </div>
                     <div class="benefit-card">
                         <h3>Stay Secure</h3>
-                        <p>MFI Cutoff Assistant doesn't require personally identifiable information. No data is stored on our server.</p>
+                        <p>HLA Cutoff Assistant doesn't require personally identifiable information. No data is stored on our server.</p>
                     </div>
                 </div>
             </div>
@@ -423,10 +413,10 @@
 
         <section id="get-started" class="get-started">
             <div class="container">
-                <h2>Start Using MFI Cutoff Assistant</h2>
+                <h2>Start Using HLA Cutoff Assistant</h2>
                 <div class="get-started-content">
                     <div class="get-started-input">
-                        <textarea id="mfiValuesInput" placeholder="Copy & paste 5 or more MFI values here. Split them in lines, commas, spaces, etc." rows="5"></textarea>
+                        <textarea id="mfiValuesInput" placeholder="Copy & paste 5 or more MFI values here. Split them into lines, commas, spaces, etc." rows="5"></textarea>
                     </div>
                     <div class="get-started-submit">
                         <button id="calculateMfiCutoffButton">&raquo; Calculate</button>
@@ -437,30 +427,15 @@
                 </div>
             </div>
         </section>
-
-        <section id="sponsor-us" class="benefits">
-            <div class="container">
-                <h2>Become a Sponsor (from $499/year)</h2>
-                <div class="benefits-content">
-                    <div class="benefit-card">
-                        <h3>HLA vendor? Get more visibility. Acquire new customers.</h3>
-                        <p>This tool is being used at HLA labs around the world. We can display a logo / ad linked to your website.</p>
-                        <p>We can also help integrate your software with MFI Cutoff Assistant through a Web API.</p>
-                        <p><strong>Get in touch and learn more: <a href="mailto:contact@mfi-cutoff-assistant.com">contact@mfi-cutoff-assistant.com</a></strong>.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 MFI Cutoff Assistant. All rights reserved. For research use only.</p>
+            <p>&copy; 2026 HLA Cutoff Assistant. All rights reserved. For research use only.</p>
             <div class="footer-content">
                 <small>
-                    Status: <b>&#x1F7E2; Operational</b>.
-                    Version: <b>2026-03-13</b>.
-                    Support: <b><a href="mailto:contact@mfi-cutoff-assistant.com">contact@mfi-cutoff-assistant.com</a></b>.
+                    Version: <b>2026-05-05</b>.
+                    Support: <b><a href="mailto:mariomarroquim@gmail.com">mariomarroquim@gmail.com</a></b>.
                 </small>
             </div>
         </div>
@@ -476,69 +451,46 @@
             mfiCutoffValue.textContent = 'Ready...';
 
             calculateMfiCutoffButton.addEventListener('click', function() {
-                const mfiValues = mfiValuesInput.value.split(/[\s,;]+/).filter(val => val && val.length > 0 && !isNaN(val));
+                const rawValues = mfiValuesInput.value.trim().split(/[\s,;]+/).filter(Boolean);
+                const parsedValues = rawValues.map(Number);
+                const hasInvalidNumber = parsedValues.some(val => !Number.isFinite(val));
 
-                if (!mfiValues || mfiValues.length === 0) {
+                if (rawValues.length === 0 || hasInvalidNumber) {
                     mfiCutoffValue.textContent = 'Ready...';
-                    alert('The MFIs field must be filled with valid numbers.');
+                    alert('The MFIs field must contain valid numbers.');
                     return;
                 }
 
-                if (mfiValues.length < 5) {
+                if (parsedValues.length < 5) {
                     mfiCutoffValue.textContent = 'Ready...';
                     alert('The MFIs field must contain at least 5 numbers.');
                     return;
                 }
 
-                const queryString = `mfis=${mfiValues.join('-')}`;
+                const queryString = `mfis=${encodeURIComponent(parsedValues.join('-'))}`;
 
                 const url = `/run?${queryString}`;
                 
                 fetch(url)
-                    .then(response => response.text())
-                    .then(data => {
+                    .then(response => response.text().then(data => ({ ok: response.ok, data })))
+                    .then(({ ok, data }) => {
+                        if (!ok) {
+                            throw new Error(data || 'Request failed');
+                        }
+
                         mfiCutoffValue.textContent = data;
                         getStartedResult.classList.remove('animate-success');
                         void getStartedResult.offsetWidth;
                         getStartedResult.classList.add('animate-success');
                     })
                     .catch(error => {
-                        alert('There is an issue with our service. Please try again later.');
+                        mfiCutoffValue.textContent = 'Ready...';
+                        alert(error.message || 'There is an issue with our service. Please try again later.');
                         console.error(error);
                     }
                 );
             });
         });
     </script>
-
-    <script type="text/javascript">
-    var sc_project=13209990; 
-    var sc_invisible=1; 
-    var sc_security="0c87d7e8"; 
-    </script>
-    <script type="text/javascript"
-    src="https://www.statcounter.com/counter/counter.js" async></script>
-    <noscript><div class="statcounter"><a title="hit counter"
-    href="https://statcounter.com/" target="_blank"><img class="statcounter"
-    src="https://c.statcounter.com/13209990/0/0c87d7e8/1/" alt="hit counter"
-    referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 </body>
-
-<script type="text/javascript">
-_linkedin_partner_id = "9715633";
-window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-</script><script type="text/javascript">
-(function(l) {
-if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-window.lintrk.q=[]}
-var s = document.getElementsByTagName("script")[0];
-var b = document.createElement("script");
-b.type = "text/javascript";b.async = true;
-b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-s.parentNode.insertBefore(b, s);})(window.lintrk);
-</script>
-<noscript>
-<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=9715633&fmt=gif" />
-</noscript>
 </html>

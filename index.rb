@@ -13,7 +13,7 @@ end
 get "/run" do
   response["Access-Control-Allow-Origin"] = "*"
 
-  halt 400, "The MFIs field must be filled with valid numbers." if params[:mfis].nil? || params[:mfis].strip.empty?
+  halt 400, "The MFIs field must contain valid numbers." if params[:mfis].nil? || params[:mfis].strip.empty?
 
   mfis = params[:mfis].strip.split("-").collect(&:to_i)
 
