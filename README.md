@@ -4,7 +4,7 @@ This web app provides both a browser interface and a web service for calculating
 
 ## Instructions
 
-This is a standard Sinatra web application. Run `bundle install && rackup`, then open [http://localhost:9292](http://localhost:9292) in your browser.
+This is a standard Sinatra web application. Run `bundle install && rackup`, then open [http://localhost:9292](http://localhost:9292).
 
 ## Support
 
