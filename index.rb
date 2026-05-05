@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 
-require 'sinatra'
+require "sinatra"
 
-get '/' do
-  send_file 'index.html'
+get "/" do
+  send_file "index.html"
 end
 
-get '/version' do
-  '2026-03-13'
+get "/version" do
+  "2026-05-05"
 end
 
-get '/run' do
-  response['Access-Control-Allow-Origin'] = '*'
+get "/run" do
+  response["Access-Control-Allow-Origin"] = "*"
 
-  halt 400, 'The MFIs field must be filled with valid numbers.' if params[:mfis].nil? || params[:mfis].strip.empty?
+  halt 400, "The MFIs field must be filled with valid numbers." if params[:mfis].nil? || params[:mfis].strip.empty?
 
-  mfis = params[:mfis].strip.split('-').collect(&:to_i)
+  mfis = params[:mfis].strip.split("-").collect(&:to_i)
 
-  halt 400, 'The MFIs field must contain at least 5 numbers.' if mfis.size < 5
+  halt 400, "The MFIs field must contain at least 5 numbers." if mfis.size < 5
 
   cutoff = find_cutoff(mfis)
 
-  halt 500, 'It was not possible to calculate a MFI cutoff value.' if cutoff.nil?
+  halt 500, "It was not possible to calculate a MFI cutoff value." if cutoff.nil?
 
   cutoff.to_s
 rescue StandardError
-  halt 500, 'There is an issue with our service. Please try again later.'
+  halt 500, "There is an issue with our service. Please try again later."
 end
 
 def find_cutoff(numbers)
@@ -58,5 +58,5 @@ def variance(group)
   return 0 if group.empty?
 
   mean = group.sum.to_f / group.size
-  group.map { |num| (num - mean)**2 }.sum
+  group.map { |num| (num - mean) ** 2 }.sum
 end
