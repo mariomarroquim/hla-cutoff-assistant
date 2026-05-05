@@ -1,6 +1,6 @@
-# MFI Cutoff Assistant
+# HLA Cutoff Assistant
 
-This web app provides both a browser interface and a web service to calculate an MFI (Mean Fluorescence Intensity) cutoff for single-antigen bead (SAB) panels. It does this by sorting the panel MFI values, testing every possible split into lower and upper groups, and selecting the split with the lowest combined variance (the sum of squared distances from each group's mean). This approach is used to produce a data-driven cutoff, because lower variance indicates tighter clustering within each group and therefore a more consistent, objective separation between low- and high-reactivity values.
+This web app provides both a browser interface and a web service for calculating an MFI (Mean Fluorescence Intensity) cutoff on single-antigen bead (SAB) panels. It sorts the submitted MFI values, tests every possible split into lower and upper groups, and selects the split with the lowest combined variance (the sum of squared distances from each group's mean). That yields a data-driven cutoff: lower variance reflects tighter clustering within each group and a more consistent separation between low- and high-reactivity beads. The output is an MFI cutoff intended to separate beads interpreted as negative from those that may be positive.
 
 ## Support
 
