@@ -7,7 +7,7 @@ get "/" do
 end
 
 get "/version" do
-  "2026-05-05"
+  "2026-05-09"
 end
 
 get "/run" do
