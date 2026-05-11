@@ -20,6 +20,7 @@ class MfiCutoffAssistantTest < Minitest::Test
   def test_version_endpoint
     get "/version"
     assert_equal 200, last_response.status
+    assert_equal "2026-05-09", last_response.body
   end
 
   def test_run_endpoint_with_fake_data
@@ -40,5 +41,29 @@ class MfiCutoffAssistantTest < Minitest::Test
 
     assert_equal 200, last_response.status
     assert_equal "3682", last_response.body
+  end
+
+  def test_run_endpoint_with_no_numbers
+    get "/run", {}
+    assert_equal 400, last_response.status
+    assert_equal "The MFIs field must contain valid numbers.", last_response.body
+  end
+
+  def test_run_endpoint_with_empty_numbers
+    get "/run", { mfis: "" }
+    assert_equal 400, last_response.status
+    assert_equal "The MFIs field must contain valid numbers.", last_response.body
+  end
+
+  def test_run_endpoint_with_invalid_numbers
+    get "/run", { mfis: "1-2-3-4-5-a-b-c-d-e" }
+    assert_equal 400, last_response.status
+    assert_equal "The MFIs field must contain valid numbers.", last_response.body
+  end
+
+  def test_run_endpoint_with_less_than_5_numbers
+    get "/run", { mfis: "1-2-3-4" }
+    assert_equal 400, last_response.status
+    assert_equal "The MFIs field must contain at least 5 numbers.", last_response.body
   end
 end
